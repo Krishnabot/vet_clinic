@@ -61,3 +61,14 @@ CREATE TABLE visits (
     CONSTRAINT fk_animal_id FOREIGN KEY(animal_id) REFERENCES animal(id),
     CONSTRAINT fk_vets_id FOREIGN KEY(vet_id) REFERENCES vets(id)
 );
+
+/* Vet clinic database: database performance audit */
+
+-- Add an email column to your owners table
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+-- This will add 3.594.280 visits considering you have 10 animals, 4 vets, and it will use around ~87.000 timestamps (~4min approx.)
+INSERT INTO visits (animal_id, vet_id, visit_date) SELECT * FROM (SELECT id FROM animal) animal_id, (SELECT id FROM vets) vets_id, generate_series('1980-01-01'::timestamp, '2021-01-01', '4 hours') visit_timestamp;
+
+-- This will add 2.500.000 owners with full_name = 'Owner <X>' and email = 'owner_<X>@email.com' (~2min approx.)
+insert into owners (full_name, age, email) select 'Owner ' || generate_series(1,2500000), random()*45-18+18, 'owner_' || generate_series(1,2500000) || '@mail.com';

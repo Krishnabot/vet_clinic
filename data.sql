@@ -67,3 +67,12 @@ INSERT INTO visits (animal_id, vet_id, visit_date) VALUES ((SELECT id FROM anima
 INSERT INTO visits (animal_id, vet_id, visit_date) VALUES ((SELECT id FROM animal WHERE name = 'Boarmon'), (SELECT id FROM vets WHERE name = 'Maisy Smith'), 'August 3, 2020');
 INSERT INTO visits (animal_id, vet_id, visit_date) VALUES ((SELECT id FROM animal WHERE name = 'Blossom'), (SELECT id FROM vets WHERE name = 'Stephanie Mendez'), 'May 25, 2020');
 INSERT INTO visits (animal_id, vet_id, visit_date) VALUES ((SELECT id FROM animal WHERE name = 'Blossom'), (SELECT id FROM vets WHERE name = 'William Tatcher'), 'January 11, 2021');
+
+
+/* Performance audit queries */
+
+CREATE INDEX animal_idx ON visits(animal_id);
+
+CREATE INDEX vet_idx ON visits(vet_id);
+
+CREATE INDEX email_idx ON owners(email); 

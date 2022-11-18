@@ -98,3 +98,8 @@ ON animal.id = visits.animal_id JOIN vets ON visits.vet_id = vets.id
 WHERE vets.name = 'Maisy Smith'
 ORDER BY visits.visit_date ASC
 LIMIT 1;
+
+/* Performance audit queries */
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animal_id = 4;
+EXPLAIN ANALYZE SELECT * FROM visits where vet_id = 2;
+EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com';
